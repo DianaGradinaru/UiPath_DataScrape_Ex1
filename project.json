@@ -3,6 +3,9 @@
   "description": "Blank Process",
   "main": "Main.xaml",
   "dependencies": {
+    "BalaReva.EasyDataTable.Activities": "[3.0.1]",
+    "BalaReva.EasyExcel.Activities": "[29.1.2]",
+    "BalaReva.Excel.Activities": "[2021.0.0]",
     "UiPath.Excel.Activities": "[2.12.3]",
     "UiPath.Mail.Activities": "[1.15.1]",
     "UiPath.System.Activities": "[22.4.0]",
