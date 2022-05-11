@@ -1,6 +1,6 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Reworked_Sequence" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="992,4358" sap2010:WorkflowViewState.IdRef="Reworked_Sequence_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Reworked_Sequence" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="994,5722" sap2010:WorkflowViewState.IdRef="Reworked_Sequence_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="37">
+    <scg:List x:TypeArguments="x:String" Capacity="38">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -38,10 +38,11 @@
       <x:String>UiPath.Mail.Activities</x:String>
       <x:String>UiPath.Shared.Activities</x:String>
       <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="35">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="36">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -77,24 +78,31 @@
       <AssemblyReference>NPOI</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Reworked_Sequence" sap:VirtualizedContainerService.HintSize="594,4293" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Reworked_Sequence" sap:VirtualizedContainerService.HintSize="602,5657" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="ExtractDataTable" />
-      <Variable x:TypeArguments="x:String" Default="diana.gradinaru.sincai@gmail.com" Name="emailAddress" />
       <Variable x:TypeArguments="x:String" Default="cars.xlsx" Name="excelName" />
       <Variable x:TypeArguments="x:String" Name="ConfigFile" />
       <Variable x:TypeArguments="x:String" Name="ConfigSheet" />
       <Variable x:TypeArguments="sd:DataTable" Name="ConfigDT" />
       <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="Out_Config" />
+      <Variable x:TypeArguments="x:String" Name="EmailSheet" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="Email_Config" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_Output" />
+      <Variable x:TypeArguments="x:String" Name="maxPrice" />
+      <Variable x:TypeArguments="x:String" Name="minPrice" />
+      <Variable x:TypeArguments="x:Double" Name="avgPrice" />
+      <Variable x:TypeArguments="x:String" Name="roundedAvg" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="Assign values for the config file variables" sap:VirtualizedContainerService.HintSize="552,252" sap2010:WorkflowViewState.IdRef="Sequence_11">
+    <Sequence DisplayName="Assign values for the config file variables" sap:VirtualizedContainerService.HintSize="560,352" sap2010:WorkflowViewState.IdRef="Sequence_11">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -116,11 +124,20 @@
           <InArgument x:TypeArguments="x:String">["Settings"]</InArgument>
         </Assign.Value>
       </Assign>
+      <Assign DisplayName="Sheet where the email information is found" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[EmailSheet]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">Email</InArgument>
+        </Assign.Value>
+      </Assign>
     </Sequence>
-    <Sequence DisplayName="Initialize-Read the Config File and Add Data To Dictionary" sap:VirtualizedContainerService.HintSize="552,813" sap2010:WorkflowViewState.IdRef="Sequence_13">
+    <Sequence sap2010:Annotation.AnnotationText="Data from the config file pertaining to search filters / url&#xD;&#xA;&#xA;" DisplayName="Initialize-Read the Config File and Add Data To Dictionary" sap:VirtualizedContainerService.HintSize="560,870" sap2010:WorkflowViewState.IdRef="Sequence_13">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <Assign DisplayName="Assign variable to the dictionary for config file values" sap:VirtualizedContainerService.HintSize="438,60" sap2010:WorkflowViewState.IdRef="Assign_9">
@@ -147,7 +164,7 @@
               <ActivityAction.Argument>
                 <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
               </ActivityAction.Argument>
-              <Sequence sap:VirtualizedContainerService.HintSize="376,348" sap2010:WorkflowViewState.IdRef="Sequence_14">
+              <Sequence sap:VirtualizedContainerService.HintSize="376,338" sap2010:WorkflowViewState.IdRef="Sequence_14">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -188,13 +205,13 @@
         </ui:ForEachRow.Body>
       </ui:ForEachRow>
     </Sequence>
-    <ui:OpenBrowser AutomaticallyDownloadWebDriver="{x:Null}" CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Private: Open browser at filtered URL for search" sap:VirtualizedContainerService.HintSize="552,1311" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Private="True" Url="[Out_Config(&quot;url&quot;).ToString]">
+    <ui:OpenBrowser AutomaticallyDownloadWebDriver="{x:Null}" CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Private: Open browser at filtered URL for search" sap:VirtualizedContainerService.HintSize="560,1589" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Private="True" Url="[Out_Config(&quot;url&quot;).ToString]">
       <ui:OpenBrowser.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="518,1210" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="526,1488" sap2010:WorkflowViewState.IdRef="Sequence_7">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="CookiesMessageExists" />
             </Sequence.Variables>
@@ -203,7 +220,7 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:UiElementExists DisplayName="Check if cookies message appears" Exists="[CookiesMessageExists]" sap:VirtualizedContainerService.HintSize="476,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+            <ui:UiElementExists DisplayName="Check if cookies message appears" Exists="[CookiesMessageExists]" sap:VirtualizedContainerService.HintSize="484,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
               <ui:UiElementExists.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7f35d470-c8c4-4bc1-89fb-245e9ceaa4cd" InformativeScreenshot="c33a1e2493d33631155f58f6b3a9c0bb" Selector="&lt;webctrl parentid='mde-consent-modal-container' tag='BUTTON' /&gt;">
                   <ui:Target.TimeoutMS>
@@ -215,29 +232,49 @@
                 </ui:Target>
               </ui:UiElementExists.Target>
             </ui:UiElementExists>
-            <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'BUTTON'" sap:VirtualizedContainerService.HintSize="476,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
-              <ui:Click.CursorPosition>
-                <ui:CursorPosition Position="Center">
-                  <ui:CursorPosition.OffsetX>
-                    <InArgument x:TypeArguments="x:Int32" />
-                  </ui:CursorPosition.OffsetX>
-                  <ui:CursorPosition.OffsetY>
-                    <InArgument x:TypeArguments="x:Int32" />
-                  </ui:CursorPosition.OffsetY>
-                </ui:CursorPosition>
-              </ui:Click.CursorPosition>
-              <ui:Click.Target>
-                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="113d4ee6-9337-400b-b100-e1e49b36d9c4" InformativeScreenshot="8e9710bcac187e9acf339fe7818e12b6" Selector="&lt;webctrl parentid='mde-consent-modal-container' tag='BUTTON' /&gt;">
-                  <ui:Target.TimeoutMS>
-                    <InArgument x:TypeArguments="x:Int32" />
-                  </ui:Target.TimeoutMS>
-                  <ui:Target.WaitForReady>
-                    <InArgument x:TypeArguments="ui:WaitForReady" />
-                  </ui:Target.WaitForReady>
-                </ui:Target>
-              </ui:Click.Target>
-            </ui:Click>
-            <Sequence DisplayName="Data Scraping" sap:VirtualizedContainerService.HintSize="476,498" sap2010:WorkflowViewState.IdRef="Sequence_10">
+            <If Condition="[CookiesMessageExists]" sap:VirtualizedContainerService.HintSize="484,384" sap2010:WorkflowViewState.IdRef="If_1">
+              <If.Then>
+                <Sequence sap:VirtualizedContainerService.HintSize="376,198" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click accept cookies to continue" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="113d4ee6-9337-400b-b100-e1e49b36d9c4" InformativeScreenshot="8e9710bcac187e9acf339fe7818e12b6" Selector="&lt;webctrl parentid='mde-consent-modal-container' tag='BUTTON' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:Click.Target>
+                  </ui:Click>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_23">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Sequence>
+              </If.Else>
+            </If>
+            <Sequence DisplayName="Data Scraping" sap:VirtualizedContainerService.HintSize="484,498" sap2010:WorkflowViewState.IdRef="Sequence_10">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -270,7 +307,7 @@
               </ui:BrowserScope>
               <ui:CloseTab Browser="{x:Null}" DisplayName="Close Chrome Tab" sap:VirtualizedContainerService.HintSize="434,22" sap2010:WorkflowViewState.IdRef="CloseTab_1" />
             </Sequence>
-            <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Write scraped data to an Excel file" sap:VirtualizedContainerService.HintSize="476,288" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" InstanceCachePeriod="3000" WorkbookPath="[excelName]">
+            <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Write scraped data to an Excel file" sap:VirtualizedContainerService.HintSize="484,288" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" InstanceCachePeriod="3000" WorkbookPath="[excelName]">
               <ui:ExcelApplicationScope.Body>
                 <ActivityAction x:TypeArguments="ui:WorkbookApplication">
                   <ActivityAction.Argument>
@@ -291,22 +328,18 @@
         </ActivityAction>
       </ui:OpenBrowser.Body>
     </ui:OpenBrowser>
-    <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="552,1705" sap2010:WorkflowViewState.IdRef="Sequence_5">
+    <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="560,2634" sap2010:WorkflowViewState.IdRef="Sequence_5">
       <Sequence.Variables>
-        <Variable x:TypeArguments="sd:DataTable" Name="dt_Output" />
-        <Variable x:TypeArguments="x:String" Name="maxPrice" />
-        <Variable x:TypeArguments="x:String" Name="minPrice" />
-        <Variable x:TypeArguments="x:Double" Name="avgPrice" />
-        <Variable x:TypeArguments="x:String" Name="roundedAvg" />
+        <Variable x:TypeArguments="x:String" Name="strBody" />
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[ExtractDataTable]" DisplayName="Read Excel with scraped data" sap:VirtualizedContainerService.HintSize="434,87" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Sheet1" WorkbookPath="[excelName]" />
-      <ui:AddDataColumn x:TypeArguments="x:Object" AllowDBNull="{x:Null}" AutoIncrement="{x:Null}" Column="{x:Null}" DefaultValue="{x:Null}" MaxLength="{x:Null}" Unique="{x:Null}" ColumnName="Numbers" DataTable="[ExtractDataTable]" DisplayName="Add Data Column for integers from price column" sap:VirtualizedContainerService.HintSize="434,185" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_1" />
-      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="434,267" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+      <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[ExtractDataTable]" DisplayName="Read Excel with scraped data" sap:VirtualizedContainerService.HintSize="476,87" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Sheet1" WorkbookPath="[excelName]" />
+      <ui:AddDataColumn x:TypeArguments="x:Object" AllowDBNull="{x:Null}" AutoIncrement="{x:Null}" Column="{x:Null}" DefaultValue="{x:Null}" MaxLength="{x:Null}" Unique="{x:Null}" ColumnName="Numbers" DataTable="[ExtractDataTable]" DisplayName="Add Data Column for integers from price column" sap:VirtualizedContainerService.HintSize="476,185" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_1" />
+      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="476,267" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
         <ui:ForEachRow.Body>
           <ActivityAction x:TypeArguments="sd:DataRow">
             <ActivityAction.Argument>
@@ -330,9 +363,9 @@
           </ActivityAction>
         </ui:ForEachRow.Body>
       </ui:ForEachRow>
-      <ui:WriteRange StartingCell="{x:Null}" AddHeaders="False" DataTable="[ExtractDataTable]" DisplayName="Write data in a new sheet called &quot;Output&quot;" sap:VirtualizedContainerService.HintSize="434,115" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Output" WorkbookPath="[excelName]" />
-      <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[dt_Output]" DisplayName="Read sheet &quot;Output&quot; from excel" sap:VirtualizedContainerService.HintSize="434,87" sap2010:WorkflowViewState.IdRef="ReadRange_2" SheetName="Output" WorkbookPath="[excelName]" />
-      <Assign DisplayName="Calculate max price from int column to a variable" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <ui:WriteRange StartingCell="{x:Null}" AddHeaders="False" DataTable="[ExtractDataTable]" DisplayName="Write data in a new sheet called &quot;Output&quot;" sap:VirtualizedContainerService.HintSize="476,115" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Output" WorkbookPath="[excelName]" />
+      <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[dt_Output]" DisplayName="Read sheet &quot;Output&quot; from excel" sap:VirtualizedContainerService.HintSize="476,87" sap2010:WorkflowViewState.IdRef="ReadRange_2" SheetName="Output" WorkbookPath="[excelName]" />
+      <Assign DisplayName="Calculate max price from int column to a variable" sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_3">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[maxPrice]</OutArgument>
         </Assign.To>
@@ -340,7 +373,7 @@
           <InArgument x:TypeArguments="x:String">[dt_Output.AsEnumerable().Max(Function(row) cint(row(3))).ToString]</InArgument>
         </Assign.Value>
       </Assign>
-      <Assign DisplayName="Calculate min price from int column to a variable" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+      <Assign DisplayName="Calculate min price from int column to a variable" sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_4">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[minPrice]</OutArgument>
         </Assign.To>
@@ -348,7 +381,7 @@
           <InArgument x:TypeArguments="x:String">[dt_Output.AsEnumerable().Min(Function(row) CInt(row(3))).ToString]</InArgument>
         </Assign.Value>
       </Assign>
-      <Assign DisplayName="Calculate average price from int column to a variable" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+      <Assign DisplayName="Calculate average price from int column to a variable" sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_5">
         <Assign.To>
           <OutArgument x:TypeArguments="x:Double">[avgPrice]</OutArgument>
         </Assign.To>
@@ -356,7 +389,7 @@
           <InArgument x:TypeArguments="x:Double">[dt_Output.AsEnumerable().Average(Function(row) CInt(row(3)))]</InArgument>
         </Assign.Value>
       </Assign>
-      <Assign DisplayName="Round to 2 decimals the average price and assign to variable" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+      <Assign DisplayName="Round to 2 decimals the average price and assign to variable" sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_6">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[roundedAvg]</OutArgument>
         </Assign.To>
@@ -364,14 +397,72 @@
           <InArgument x:TypeArguments="x:String">[math.Round(avgPrice, 2).ToString]</InArgument>
         </Assign.Value>
       </Assign>
-      <ui:SendOutlookMail Account="{x:Null}" Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" ReplyTo="{x:Null}" Body="[&quot;Salut,”+Environment.NewLine+Environment.NewLine+&quot;Dupa filtrarea datelor de pe site-ul www.mobile.de/ro, pretul minim pentru o masina conforma cu specificatiile cerute este de &quot;+minPrice+ &quot; EUR, pretul maxim este &quot;+maxPrice+&quot; EUR, iar pretul mediu este &quot;+roundedAvg+Environment.NewLine+Environment.NewLine+&quot;Multumesc,&quot;+Environment.NewLine+&quot;Diana Gradinaru&quot;]" DisplayName="Send Outlook Mail Message with attachment and price variables in body" sap:VirtualizedContainerService.HintSize="434,148" sap2010:WorkflowViewState.IdRef="SendOutlookMail_1" Importance="Normal" IsBodyHtml="False" IsDraft="False" Sensitivity="Normal" Subject="Assignment number 1 done" TimeoutMS="200000" To="[emailAddress]">
+      <Sequence sap2010:Annotation.AnnotationText="Data from the config file pertaining to email activities&#xA;" DisplayName="Initialize-Read the Config File and Add Filter Data To Dictionary" sap:VirtualizedContainerService.HintSize="476,628" sap2010:WorkflowViewState.IdRef="Sequence_21">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="sd:DataTable" Name="EmailDT" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Assign sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+          <Assign.To>
+            <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)">[Email_Config]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)">[new Dictionary(Of String, Object)]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[EmailDT]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="434,87" sap2010:WorkflowViewState.IdRef="ReadRange_5" SheetName="[EmailSheet]" WorkbookPath="[ConfigFile]" />
+        <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[EmailDT]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="434,267" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+          <ui:ForEachRow.Body>
+            <ActivityAction x:TypeArguments="sd:DataRow">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="304,152" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Object">[Email_Config(row("Name").ToString)]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Object">[row("Value")]</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+            </ActivityAction>
+          </ui:ForEachRow.Body>
+        </ui:ForEachRow>
+      </Sequence>
+      <ui:ReadTextFile File="{x:Null}" Content="[strBody]" DisplayName="Read Text File with Email Body" FileName="Data\emailBody.txt" sap:VirtualizedContainerService.HintSize="476,79" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+      <Assign sap2010:Annotation.AnnotationText="Change dummy variables in text file with min max and avg price variables" DisplayName="Change dummy variables" sap:VirtualizedContainerService.HintSize="476,102" sap2010:WorkflowViewState.IdRef="Assign_14">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strBody]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[strBody.Replace("minPrice", minPrice.ToString).Replace("maxPrice", maxPrice.ToString).Replace("avgPrice", avgPrice.ToString)]</InArgument>
+        </Assign.Value>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </Assign>
+      <ui:SendOutlookMail Account="{x:Null}" Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" ReplyTo="{x:Null}" Body="[strBody]" DisplayName="Send Outlook Mail Message with attachment and price variables in body" sap:VirtualizedContainerService.HintSize="476,148" sap2010:WorkflowViewState.IdRef="SendOutlookMail_1" Importance="Normal" IsBodyHtml="False" IsDraft="False" Sensitivity="Normal" Subject="[Email_Config(&quot;subject&quot;).ToString]" TimeoutMS="200000" To="[Email_Config(&quot;email&quot;).ToString]">
         <ui:SendOutlookMail.Files>
           <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
             <InArgument x:TypeArguments="x:String">[excelName]</InArgument>
           </scg:List>
         </ui:SendOutlookMail.Files>
       </ui:SendOutlookMail>
-      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="434,84" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;Email sent. Process complete.&quot;]" />
+      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box to inform user that process is done" sap:VirtualizedContainerService.HintSize="476,84" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;Email sent. Process complete.&quot;]" />
     </Sequence>
   </Sequence>
 </Activity>

@@ -1,0 +1,6 @@
+Salut,
+
+Dupa filtrarea datelor de pe site-ul www.mobile.de/ro, pretul minim pentru o masina conforma cu specificatiile cerute este de minPrice EUR, pretul maxim este maxPrice EUR, iar pretul mediu este avgPrice EUR.
+
+Multumesc,
+Diana Gradinaru
